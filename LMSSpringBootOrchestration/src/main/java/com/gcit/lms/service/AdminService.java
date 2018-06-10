@@ -10,6 +10,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -36,11 +37,13 @@ public class AdminService  {
 	
 	//author operations
 	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/author", method=RequestMethod.POST)
 	public HttpHeaders saveAuthor(@RequestBody Author author, HttpServletResponse response) throws IOException
 	{
 		try {
+//			System.out.println(author.getAuthorName());
 			ResponseEntity<Author> responseEntity = restTemplate.postForEntity("http://localhost:8081/author/", author, Author.class);
 			response.setStatus(201);
 			return responseEntity.getHeaders();
@@ -52,7 +55,7 @@ public class AdminService  {
 	
 	
 
-	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/authors",method=RequestMethod.GET)
 	public Author[] readAuthor(HttpServletResponse response) throws SQLException, IOException
@@ -68,7 +71,7 @@ public class AdminService  {
 		
 	}
 	
-	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/authors/{authorName}",method=RequestMethod.GET)
 	public Author[] readAuthorsByName(@PathVariable("authorName") String authorName, HttpServletResponse response) throws IOException
@@ -84,12 +87,14 @@ public class AdminService  {
 		}
 	}
 	
-	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/authors/{authorId}",method=RequestMethod.PUT)
 	public HttpHeaders updateAuthor(@PathVariable("authorId") Integer authorId,@RequestBody Author author, @RequestHeader HttpHeaders headers, HttpServletResponse response) throws IOException
 	{
+		System.out.println("outside "+authorId);
 		try {
+			System.out.println(authorId);
 			HttpEntity<Author> requestUpdate = new HttpEntity<>(author, headers);
 			ResponseEntity<Author> responseEntity = restTemplate.exchange("http://localhost:8081/authors/" + authorId, HttpMethod.PUT, requestUpdate, Author.class);
 			return responseEntity.getHeaders();
@@ -99,7 +104,7 @@ public class AdminService  {
 		}
 	}
 	
-	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/authors/{authorId}",method=RequestMethod.DELETE)
 	public void deleteAuthor(@PathVariable("authorId") Integer authorId, HttpServletResponse response) throws IOException
@@ -112,11 +117,9 @@ public class AdminService  {
 		}
 	}
 	
-	
-	
-	
+		
 	//genre operations
-	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/genre", method=RequestMethod.POST)
 	public HttpHeaders saveGenre(@RequestBody Genre genre, HttpServletResponse response) throws  IOException
@@ -132,7 +135,7 @@ public class AdminService  {
 	}
 	
 
-	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/genres",method=RequestMethod.GET)
 	public Genre[] readGenre(HttpServletResponse response) throws SQLException,IOException
@@ -147,6 +150,7 @@ public class AdminService  {
 		}
 	}
 	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/genres/{genre_name}",method=RequestMethod.GET)
 	public Genre[] readGenresByName(@PathVariable("genre_name") String genre_name, HttpServletResponse response) throws IOException
@@ -162,6 +166,7 @@ public class AdminService  {
 		}
 	}
 	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/genres/{genre_Id}",method=RequestMethod.PUT)
 	public HttpHeaders  updateGenre(@PathVariable("genre_Id") Integer genre_Id,@RequestBody Genre genre, @RequestHeader HttpHeaders headers, HttpServletResponse response) throws IOException 
@@ -176,12 +181,13 @@ public class AdminService  {
 		}
 	}
 	
-	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/genres/{genre_Id}",method=RequestMethod.DELETE)
 	public void deleteGenre(@PathVariable("genre_Id") Integer genre_Id, HttpServletResponse response) throws IOException
 	{
 		try {
+			System.out.println(genre_Id);
 			restTemplate.delete("http://localhost:8081/genres/" + genre_Id);
 			response.setStatus(204);
 		} catch (RestClientException e) {
@@ -193,7 +199,7 @@ public class AdminService  {
 	//Book Operations
 	
 	
-
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/book",method=RequestMethod.POST)
 	public HttpHeaders saveBook(@RequestBody Book book, HttpServletResponse response) throws  IOException
@@ -208,7 +214,7 @@ public class AdminService  {
 		}
 	}
 	
-	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/books",method=RequestMethod.GET)
 	public Book[] readBook(HttpServletResponse response) throws IOException
@@ -223,13 +229,14 @@ public class AdminService  {
 		}
 	}
 	
-	
+	@CrossOrigin
 	@Transactional
-	@RequestMapping(value="/lms/books/{title}",method=RequestMethod.GET)
+	@RequestMapping(value="/lms/books/title/{title}",method=RequestMethod.GET)
 	public Book[] readBookByName(@PathVariable("title") String title, HttpServletResponse response) throws IOException
 	{
 		try {
-			ResponseEntity<Book[]> responseEntity = restTemplate.getForEntity("http://localhost:8081/books/" + title , Book[].class);
+			System.out.println(title);
+			ResponseEntity<Book[]> responseEntity = restTemplate.getForEntity("http://localhost:8081/books/title/" + title , Book[].class);
 			Book[] books = responseEntity.getBody();
 			return books;
 		} catch (RestClientException e) {
@@ -239,7 +246,7 @@ public class AdminService  {
 		}
 	}
 	
-	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/books/{bookId}",method=RequestMethod.PUT)
 	public HttpHeaders updateBook(@PathVariable("bookId") Integer bookId,@RequestBody Book book, @RequestHeader HttpHeaders headers, HttpServletResponse response) throws IOException
@@ -254,7 +261,7 @@ public class AdminService  {
 		}
 	}
 	
-	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/books/{bookId}",method=RequestMethod.DELETE)
 	public void deleteBook(@PathVariable("bookId") Integer bookId, HttpServletResponse response) throws IOException
@@ -271,7 +278,7 @@ public class AdminService  {
 	
 	//publisher operations
 
-	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/publisher",method=RequestMethod.POST)
 	public HttpHeaders savePublisher(@RequestBody Publisher publisher, HttpServletResponse response) throws IOException 
@@ -288,7 +295,7 @@ public class AdminService  {
 	
 
 	
-	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/publishers",method=RequestMethod.GET)
 	public Publisher[] readPublisher(HttpServletResponse response) throws IOException
@@ -303,6 +310,8 @@ public class AdminService  {
 		}
 	}
 	
+	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/publishers/{publisherName}",method=RequestMethod.GET)
 	public Publisher[] readPublisherByNme(@PathVariable("publisherName") String publisherName, HttpServletResponse response) throws IOException
@@ -318,7 +327,7 @@ public class AdminService  {
 		}
 	}
 	
-	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/publishers/{publisherId}",method=RequestMethod.PUT)
 	public HttpHeaders updatePublisher(@PathVariable("publisherId") Integer publisherId,@RequestBody Publisher publisher, @RequestHeader HttpHeaders headers, HttpServletResponse response) throws IOException
@@ -336,7 +345,7 @@ public class AdminService  {
 
 	
 	
-
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/publishers/{publisherId}",method=RequestMethod.DELETE)
 	public void deletePublisher(@PathVariable("publisherId") Integer publisherId, HttpServletResponse response) throws IOException
@@ -354,7 +363,7 @@ public class AdminService  {
 	
 	//BookLoans Operations
 
-	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/bookLoans",method=RequestMethod.GET)
 	public BookLoans[] readAllBookLoans(HttpServletResponse response) throws IOException
@@ -369,6 +378,7 @@ public class AdminService  {
 		}
 	}
 	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/bookLoans/{cardNo}",method=RequestMethod.GET)
 	public BookLoans[] readBookLoansByUserId(@PathVariable("cardNo") Integer cardNo, HttpServletResponse response) throws IOException

@@ -9,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -32,6 +33,7 @@ public class BorrowerService {
 	
 	//BookLoan Operations
 	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/bookLoan",method=RequestMethod.POST)
 	public HttpHeaders  saveBookLoan(@RequestBody BookLoans bookLoan, HttpServletResponse response) throws IOException
@@ -46,6 +48,7 @@ public class BorrowerService {
 		}
 	}
 	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/bookLoans",method=RequestMethod.PUT)
 	public HttpHeaders  returnBookLoan(@RequestParam("bookId") Integer bookId,@RequestParam("branchId") Integer branchId,@RequestParam("cardNo") Integer cardNo,@RequestBody BookLoans bookLoan, @RequestHeader HttpHeaders headers, HttpServletResponse response) throws IOException //this method updates dateIn 
@@ -60,7 +63,7 @@ public class BorrowerService {
 		}
 	}
 	
-	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/bookLoans/dueDate",method=RequestMethod.PUT)
 	public HttpHeaders changeDueDate(@RequestParam("bookId") Integer bookId,@RequestParam("branchId") Integer branchId,@RequestParam("cardNo") Integer cardNo,@RequestBody BookLoans bookloan, @RequestHeader HttpHeaders headers, HttpServletResponse response) throws IOException
@@ -77,13 +80,13 @@ public class BorrowerService {
 	}
 	
 	
-	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/bookLoans/user/{cardNo}",method=RequestMethod.GET)
 	public BookLoans[] ReadBookLoansByUserBranch(@PathVariable("cardNo") Integer cardNo, HttpServletResponse response) throws IOException 
 	{
 		try {
-			ResponseEntity<BookLoans[]> responseEntity = restTemplate.getForEntity("http://localhost:8082/bookLoans/" + cardNo , BookLoans[].class);
+			ResponseEntity<BookLoans[]> responseEntity = restTemplate.getForEntity("http://localhost:8082/bookLoans/user/" + cardNo , BookLoans[].class);
 			BookLoans[] bookloans = responseEntity.getBody();
 			return bookloans;
 		} catch (RestClientException e) {
@@ -97,7 +100,7 @@ public class BorrowerService {
 	
 	//BookCopies
 	
-	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/bookCopies",method=RequestMethod.PUT)
 	public HttpHeaders loanBookCopies(@RequestParam("bookId") Integer bookId,@RequestParam("branchId") Integer branchId,@RequestBody BookCopies bookCopy, @RequestHeader HttpHeaders headers, HttpServletResponse response) throws IOException  //this method updates noOfCopies
@@ -115,6 +118,7 @@ public class BorrowerService {
 	
 	//Books
 	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/books/{bookId}",method=RequestMethod.GET)
 	public Book[] ReadBookByBookID(@PathVariable("bookId") Integer bookId, HttpServletResponse response) throws IOException   //for return book
@@ -133,7 +137,7 @@ public class BorrowerService {
 	
 	
 	//Borrower
-	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/borrowers",method=RequestMethod.GET)
 	public Borrower[] readBorrower(HttpServletResponse response) throws IOException 
@@ -148,13 +152,13 @@ public class BorrowerService {
 		}
 	}
 	
-	
+	@CrossOrigin
 	@Transactional
-	@RequestMapping(value="/lms/borrowers/{name}",method=RequestMethod.GET)
+	@RequestMapping(value="/lms/borrowers/name/{name}",method=RequestMethod.GET)
 	public Borrower[] readBorrowerByName(@PathVariable("name") String name, HttpServletResponse response) throws IOException
 	{
 		try {
-			ResponseEntity<Borrower[]> responseEntity = restTemplate.getForEntity("http://localhost:8082/borrowers/" + name , Borrower[].class);
+			ResponseEntity<Borrower[]> responseEntity = restTemplate.getForEntity("http://localhost:8082/borrowers/name/" + name , Borrower[].class);
 			Borrower[] borrowers = responseEntity.getBody();
 			return borrowers;
 		} catch (RestClientException e) {
@@ -164,7 +168,7 @@ public class BorrowerService {
 		}
 	}
 	
-	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/borrowers/{cardNo}",method=RequestMethod.GET)
 	public Borrower[] readBorrowerById(@PathVariable("cardNo") Integer cardNo, HttpServletResponse response) throws IOException
@@ -182,7 +186,7 @@ public class BorrowerService {
 	
 	
 	
-	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/borrowers/{cardNo}",method=RequestMethod.PUT)
 	public HttpHeaders  updateBorrower(@PathVariable("cardNo") Integer cardNo,@RequestBody Borrower borrower, @RequestHeader HttpHeaders headers, HttpServletResponse response) throws IOException
@@ -197,6 +201,7 @@ public class BorrowerService {
 		}
 	}
 	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/borrowers/{cardNo}",method=RequestMethod.DELETE)
 	public void deleteBorrower(@PathVariable("cardNo") Integer cardNo, HttpServletResponse response) throws IOException
@@ -209,6 +214,8 @@ public class BorrowerService {
 		}
 	}
 	
+	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/borrower",method=RequestMethod.POST)
 	public HttpHeaders  saveBorrower(@RequestBody Borrower borrower, HttpServletResponse response) throws IOException 

@@ -9,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -31,6 +32,7 @@ public class LibraryService {
 	
 	// BookCopy operations
 	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/bookCopy",method=RequestMethod.POST)
 	public HttpHeaders saveBookCopy(@RequestBody BookCopies bookCopy, HttpServletResponse response) throws IOException
@@ -45,7 +47,7 @@ public class LibraryService {
 		}
 	}
 	
-	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/bookCopies",method=RequestMethod.GET)
 	public BookCopies[] readBookCopiesById(@RequestParam("bookId") Integer bookId,@RequestParam("branchId") Integer branchId, HttpServletResponse response) throws IOException
@@ -61,7 +63,7 @@ public class LibraryService {
 		}
 	}
 	
-	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/bookCopies/{bookId}",method=RequestMethod.PUT)
 	public HttpHeaders updateBookCopies(@PathVariable("bookId") Integer bookId,@RequestParam("branchId") Integer branchId,@RequestBody BookCopies bookCopy, @RequestHeader HttpHeaders headers, HttpServletResponse response) throws IOException
@@ -76,6 +78,7 @@ public class LibraryService {
 		}
 	}
 	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/bookCopies/return",method=RequestMethod.PUT)
 	public HttpHeaders updateBookCopies2(@RequestBody BookCopies bookCopy, @RequestHeader HttpHeaders headers, HttpServletResponse response) throws IOException  //when returning book
@@ -93,6 +96,7 @@ public class LibraryService {
 	
 	//Library Branch Operations
 	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/libraryBranches/{branchId}",method=RequestMethod.PUT)
 	public HttpHeaders updateLibraryBranch(@PathVariable("branchId") Integer branchId,@RequestBody LibraryBranch libraryBranch, @RequestHeader HttpHeaders headers, HttpServletResponse response) throws IOException 
@@ -107,20 +111,20 @@ public class LibraryService {
 		}
 	}
 	
-	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/libraryBranches/{branchId}",method=RequestMethod.DELETE)
 	public void deleteLibraryBranch(@PathVariable("branchId") Integer branchId, HttpServletResponse response) throws IOException
 	{
 		try {
-			restTemplate.delete("http://localhost:8083/lms/libraryBranches/" + branchId);
+			restTemplate.delete("http://localhost:8083/libraryBranches/" + branchId);
 			response.setStatus(204);
 		} catch (RestClientException e) {
 			response.sendError(404, "Invalid id, author does not exist in database.");
 		}
 	}
 	
-	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/libraryBranch",method=RequestMethod.POST)
 	public HttpHeaders saveLibraryBranch(@RequestBody LibraryBranch libraryBranch, HttpServletResponse response) throws IOException 
@@ -136,6 +140,7 @@ public class LibraryService {
 	}
 	
 	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/libraryBranches",method=RequestMethod.GET)
 	public LibraryBranch[] readLibraryBranch(HttpServletResponse response) throws IOException 
@@ -150,7 +155,7 @@ public class LibraryService {
 		}
 	}
 	
-	
+	@CrossOrigin
 	@Transactional
 	@RequestMapping(value="/lms/libraryBranches/{branchName}",method=RequestMethod.GET)
 	public LibraryBranch[] readLibraryBranchesByName(@PathVariable("branchName") String branchName, HttpServletResponse response) throws IOException
