@@ -39,7 +39,7 @@ public class BorrowerService {
 	public HttpHeaders  saveBookLoan(@RequestBody BookLoans bookLoan, HttpServletResponse response) throws IOException
 	{
 		try {
-			ResponseEntity<BookLoans> responseEntity = restTemplate.postForEntity("http://localhost:8082/bookLoan", bookLoan, BookLoans.class);
+			ResponseEntity<BookLoans> responseEntity = restTemplate.postForEntity("http://54.185.38.228:8082/bookLoan", bookLoan, BookLoans.class);
 			response.setStatus(201);
 			return responseEntity.getHeaders();
 		} catch (RestClientException e) {
@@ -55,7 +55,7 @@ public class BorrowerService {
 	{
 		try {
 			HttpEntity<BookLoans> requestUpdate = new HttpEntity<>(bookLoan, headers);
-			ResponseEntity<BookLoans> responseEntity = restTemplate.exchange("http://localhost:8082/bookLoans?bookId="+bookId+"&branchId="+branchId+"&cardNo="+cardNo , HttpMethod.PUT, requestUpdate, BookLoans.class);
+			ResponseEntity<BookLoans> responseEntity = restTemplate.exchange("http://54.185.38.228:8082/bookLoans?bookId="+bookId+"&branchId="+branchId+"&cardNo="+cardNo , HttpMethod.PUT, requestUpdate, BookLoans.class);
 			return responseEntity.getHeaders();
 		} catch (RestClientException e) {
 			response.sendError(400, "Invalid request caused by invalid body parameters.");		
@@ -71,7 +71,7 @@ public class BorrowerService {
 		
 		try {
 			HttpEntity<BookLoans> requestUpdate = new HttpEntity<>(bookloan, headers);
-			ResponseEntity<BookLoans> responseEntity = restTemplate.exchange("http://localhost:8082/bookLoans/dueDate?bookId="+bookId+"&branchId="+branchId+"&cardNo="+cardNo , HttpMethod.PUT, requestUpdate, BookLoans.class);
+			ResponseEntity<BookLoans> responseEntity = restTemplate.exchange("http://54.185.38.228:8082/bookLoans/dueDate?bookId="+bookId+"&branchId="+branchId+"&cardNo="+cardNo , HttpMethod.PUT, requestUpdate, BookLoans.class);
 			return responseEntity.getHeaders();
 		} catch (RestClientException e) {
 			response.sendError(400, "Invalid request caused by invalid body parameters.");		
@@ -86,7 +86,7 @@ public class BorrowerService {
 	public BookLoans[] ReadBookLoansByUserBranch(@PathVariable("cardNo") Integer cardNo, HttpServletResponse response) throws IOException 
 	{
 		try {
-			ResponseEntity<BookLoans[]> responseEntity = restTemplate.getForEntity("http://localhost:8082/bookLoans/user/" + cardNo , BookLoans[].class);
+			ResponseEntity<BookLoans[]> responseEntity = restTemplate.getForEntity("http://54.185.38.228:8082/bookLoans/user/" + cardNo , BookLoans[].class);
 			BookLoans[] bookloans = responseEntity.getBody();
 			return bookloans;
 		} catch (RestClientException e) {
@@ -107,7 +107,7 @@ public class BorrowerService {
 	{
 		try {
 			HttpEntity<BookCopies> requestUpdate = new HttpEntity<>(bookCopy, headers);
-			ResponseEntity<BookCopies> responseEntity = restTemplate.exchange("http://localhost:8082/bookCopies?bookId="+bookId+"&branchId="+branchId, HttpMethod.PUT, requestUpdate, BookCopies.class);
+			ResponseEntity<BookCopies> responseEntity = restTemplate.exchange("http://54.185.38.228:8082/bookCopies?bookId="+bookId+"&branchId="+branchId, HttpMethod.PUT, requestUpdate, BookCopies.class);
 			return responseEntity.getHeaders();
 		} catch (RestClientException e) {
 			response.sendError(400, "Invalid request caused by invalid body parameters.");		
@@ -124,7 +124,7 @@ public class BorrowerService {
 	public Book[] ReadBookByBookID(@PathVariable("bookId") Integer bookId, HttpServletResponse response) throws IOException   //for return book
 	{
 		try {
-			ResponseEntity<Book[]> responseEntity = restTemplate.getForEntity("http://localhost:8082/books/" + bookId , Book[].class);
+			ResponseEntity<Book[]> responseEntity = restTemplate.getForEntity("http://54.185.38.228:8082/books/" + bookId , Book[].class);
 			Book[] books = responseEntity.getBody();
 			return books;
 		} catch (RestClientException e) {
@@ -143,7 +143,7 @@ public class BorrowerService {
 	public Borrower[] readBorrower(HttpServletResponse response) throws IOException 
 	{
 		try {
-			ResponseEntity<Borrower[]> responseEntity = restTemplate.getForEntity("http://localhost:8082/borrowers", Borrower[].class);
+			ResponseEntity<Borrower[]> responseEntity = restTemplate.getForEntity("http://54.185.38.228:8082/borrowers", Borrower[].class);
 			Borrower[] borrowers = responseEntity.getBody();
 			return borrowers;
 		} catch (RestClientException e) {
@@ -158,7 +158,7 @@ public class BorrowerService {
 	public Borrower[] readBorrowerByName(@PathVariable("name") String name, HttpServletResponse response) throws IOException
 	{
 		try {
-			ResponseEntity<Borrower[]> responseEntity = restTemplate.getForEntity("http://localhost:8082/borrowers/name/" + name , Borrower[].class);
+			ResponseEntity<Borrower[]> responseEntity = restTemplate.getForEntity("http://54.185.38.228:8082/borrowers/name/" + name , Borrower[].class);
 			Borrower[] borrowers = responseEntity.getBody();
 			return borrowers;
 		} catch (RestClientException e) {
@@ -174,7 +174,7 @@ public class BorrowerService {
 	public Borrower[] readBorrowerById(@PathVariable("cardNo") Integer cardNo, HttpServletResponse response) throws IOException
 	{
 		try {
-			ResponseEntity<Borrower[]> responseEntity = restTemplate.getForEntity("http://localhost:8082/borrowers/" + cardNo , Borrower[].class);
+			ResponseEntity<Borrower[]> responseEntity = restTemplate.getForEntity("http://54.185.38.228:8082/borrowers/" + cardNo , Borrower[].class);
 			Borrower[] borrowers = responseEntity.getBody();
 			return borrowers;
 		} catch (RestClientException e) {
@@ -193,7 +193,7 @@ public class BorrowerService {
 	{
 		try {
 			HttpEntity<Borrower> requestUpdate = new HttpEntity<>(borrower, headers);
-			ResponseEntity<Borrower> responseEntity = restTemplate.exchange("http://localhost:8082/borrowers/" + cardNo, HttpMethod.PUT, requestUpdate, Borrower.class);
+			ResponseEntity<Borrower> responseEntity = restTemplate.exchange("http://54.185.38.228:8082/borrowers/" + cardNo, HttpMethod.PUT, requestUpdate, Borrower.class);
 			return responseEntity.getHeaders();
 		} catch (RestClientException e) {
 			response.sendError(400, "Invalid request caused by invalid body parameters.");		
@@ -207,7 +207,7 @@ public class BorrowerService {
 	public void deleteBorrower(@PathVariable("cardNo") Integer cardNo, HttpServletResponse response) throws IOException
 	{
 		try {
-			restTemplate.delete("http://localhost:8082/borrowers/" + cardNo);
+			restTemplate.delete("http://54.185.38.228:8082/borrowers/" + cardNo);
 			response.setStatus(204);
 		} catch (RestClientException e) {
 			response.sendError(404, "Invalid id, author does not exist in database.");
@@ -221,7 +221,7 @@ public class BorrowerService {
 	public HttpHeaders  saveBorrower(@RequestBody Borrower borrower, HttpServletResponse response) throws IOException 
 	{
 		try {
-			ResponseEntity<Borrower> responseEntity = restTemplate.postForEntity("http://localhost:8082/borrower", borrower, Borrower.class);
+			ResponseEntity<Borrower> responseEntity = restTemplate.postForEntity("http://54.185.38.228:8082/borrower", borrower, Borrower.class);
 			response.setStatus(201);
 			return responseEntity.getHeaders();
 		} catch (RestClientException e) {

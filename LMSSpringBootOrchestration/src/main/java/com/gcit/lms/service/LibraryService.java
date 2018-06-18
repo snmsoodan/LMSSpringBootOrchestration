@@ -38,7 +38,7 @@ public class LibraryService {
 	public HttpHeaders saveBookCopy(@RequestBody BookCopies bookCopy, HttpServletResponse response) throws IOException
 	{
 		try {
-			ResponseEntity<BookCopies> responseEntity = restTemplate.postForEntity("http://localhost:8083/bookCopy", bookCopy, BookCopies.class);
+			ResponseEntity<BookCopies> responseEntity = restTemplate.postForEntity("http://54.185.38.228:8083/bookCopy", bookCopy, BookCopies.class);
 			response.setStatus(201);
 			return responseEntity.getHeaders();
 		} catch (RestClientException e) {
@@ -53,7 +53,7 @@ public class LibraryService {
 	public BookCopies[] readBookCopiesById(@RequestParam("bookId") Integer bookId,@RequestParam("branchId") Integer branchId, HttpServletResponse response) throws IOException
 	{
 		try {
-			ResponseEntity<BookCopies[]> responseEntity = restTemplate.getForEntity("http://localhost:8083/bookCopies?bookId="+bookId+"&branchId="+branchId , BookCopies[].class);
+			ResponseEntity<BookCopies[]> responseEntity = restTemplate.getForEntity("http://54.185.38.228:8083/bookCopies?bookId="+bookId+"&branchId="+branchId , BookCopies[].class);
 			BookCopies[] bookCopies = responseEntity.getBody();
 			return bookCopies;
 		} catch (RestClientException e) {
@@ -70,7 +70,7 @@ public class LibraryService {
 	{																				//admin updating noOfCopies
 		try {
 			HttpEntity<BookCopies> requestUpdate = new HttpEntity<>(bookCopy, headers);
-			ResponseEntity<BookCopies> responseEntity = restTemplate.exchange("http://localhost:8083/bookCopies?bookId"+bookId+"&branchId="+branchId, HttpMethod.PUT, requestUpdate, BookCopies.class);
+			ResponseEntity<BookCopies> responseEntity = restTemplate.exchange("http://54.185.38.228:8083/bookCopies?bookId"+bookId+"&branchId="+branchId, HttpMethod.PUT, requestUpdate, BookCopies.class);
 			return responseEntity.getHeaders();
 		} catch (RestClientException e) {
 			response.sendError(400, "Invalid request caused by invalid body parameters.");		
@@ -85,7 +85,7 @@ public class LibraryService {
 	{
 		try {
 			HttpEntity<BookCopies> requestUpdate = new HttpEntity<>(bookCopy, headers);
-			ResponseEntity<BookCopies> responseEntity = restTemplate.exchange("http://localhost:8083/bookCopies/return", HttpMethod.PUT, requestUpdate, BookCopies.class);
+			ResponseEntity<BookCopies> responseEntity = restTemplate.exchange("http://54.185.38.228:8083/bookCopies/return", HttpMethod.PUT, requestUpdate, BookCopies.class);
 			return responseEntity.getHeaders();
 		} catch (RestClientException e) {
 			response.sendError(400, "Invalid request caused by invalid body parameters.");		
@@ -103,7 +103,7 @@ public class LibraryService {
 	{
 		try {
 			HttpEntity<LibraryBranch> requestUpdate = new HttpEntity<>(libraryBranch, headers);
-			ResponseEntity<LibraryBranch> responseEntity = restTemplate.exchange("http://localhost:8083/libraryBranches/"+branchId, HttpMethod.PUT, requestUpdate, LibraryBranch.class);
+			ResponseEntity<LibraryBranch> responseEntity = restTemplate.exchange("http://54.185.38.228:8083/libraryBranches/"+branchId, HttpMethod.PUT, requestUpdate, LibraryBranch.class);
 			return responseEntity.getHeaders();
 		} catch (RestClientException e) {
 			response.sendError(400, "Invalid request caused by invalid body parameters.");		
@@ -117,7 +117,7 @@ public class LibraryService {
 	public void deleteLibraryBranch(@PathVariable("branchId") Integer branchId, HttpServletResponse response) throws IOException
 	{
 		try {
-			restTemplate.delete("http://localhost:8083/libraryBranches/" + branchId);
+			restTemplate.delete("http://54.185.38.228:8083/libraryBranches/" + branchId);
 			response.setStatus(204);
 		} catch (RestClientException e) {
 			response.sendError(404, "Invalid id, author does not exist in database.");
@@ -130,7 +130,7 @@ public class LibraryService {
 	public HttpHeaders saveLibraryBranch(@RequestBody LibraryBranch libraryBranch, HttpServletResponse response) throws IOException 
 	{
 		try {
-			ResponseEntity<LibraryBranch> responseEntity = restTemplate.postForEntity("http://localhost:8083/libraryBranch", libraryBranch, LibraryBranch.class);
+			ResponseEntity<LibraryBranch> responseEntity = restTemplate.postForEntity("http://54.185.38.228:8083/libraryBranch", libraryBranch, LibraryBranch.class);
 			response.setStatus(201);
 			return responseEntity.getHeaders();
 		} catch (RestClientException e) {
@@ -146,7 +146,7 @@ public class LibraryService {
 	public LibraryBranch[] readLibraryBranch(HttpServletResponse response) throws IOException 
 	{
 		try {
-			ResponseEntity<LibraryBranch[]> responseEntity = restTemplate.getForEntity("http://localhost:8083/libraryBranches", LibraryBranch[].class);
+			ResponseEntity<LibraryBranch[]> responseEntity = restTemplate.getForEntity("http://54.185.38.228:8083/libraryBranches", LibraryBranch[].class);
 			LibraryBranch[] libraryBranches = responseEntity.getBody();
 			return libraryBranches;
 		} catch (RestClientException e) {
@@ -161,7 +161,7 @@ public class LibraryService {
 	public LibraryBranch[] readLibraryBranchesByName(@PathVariable("branchName") String branchName, HttpServletResponse response) throws IOException
 	{
 		try {
-			ResponseEntity<LibraryBranch[]> responseEntity = restTemplate.getForEntity("http://localhost:8083/libraryBranches/" + branchName , LibraryBranch[].class);
+			ResponseEntity<LibraryBranch[]> responseEntity = restTemplate.getForEntity("http://54.185.38.228:8083/libraryBranches/" + branchName , LibraryBranch[].class);
 			LibraryBranch[] libraryBranches = responseEntity.getBody();
 			return libraryBranches;
 		} catch (RestClientException e) {

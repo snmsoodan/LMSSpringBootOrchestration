@@ -44,7 +44,7 @@ public class AdminService  {
 	{
 		try {
 //			System.out.println(author.getAuthorName());
-			ResponseEntity<Author> responseEntity = restTemplate.postForEntity("http://localhost:8081/author/", author, Author.class);
+			ResponseEntity<Author> responseEntity = restTemplate.postForEntity("http://54.185.38.228:8081/author/", author, Author.class);
 			response.setStatus(201);
 			return responseEntity.getHeaders();
 		} catch (RestClientException e) {
@@ -61,7 +61,7 @@ public class AdminService  {
 	public Author[] readAuthor(HttpServletResponse response) throws SQLException, IOException
 	{
 		try {
-			ResponseEntity<Author[]> responseEntity= restTemplate.getForEntity("http://localhost:8081/authors", Author[].class);
+			ResponseEntity<Author[]> responseEntity= restTemplate.getForEntity("http://54.185.38.228:8081/authors", Author[].class);
 			Author[] authors = responseEntity.getBody();
 			return authors;
 		} catch (RestClientException e) {
@@ -77,7 +77,7 @@ public class AdminService  {
 	public Author[] readAuthorsByName(@PathVariable("authorName") String authorName, HttpServletResponse response) throws IOException
 	{
 		try {
-			ResponseEntity<Author[]> responseEntity = restTemplate.getForEntity("http://localhost:8081/authors/" + authorName , Author[].class);
+			ResponseEntity<Author[]> responseEntity = restTemplate.getForEntity("http://54.185.38.228:8081/authors/" + authorName , Author[].class);
 			Author[] author = responseEntity.getBody();
 			return author;
 		} catch (RestClientException e) {
@@ -96,7 +96,7 @@ public class AdminService  {
 		try {
 			System.out.println(authorId);
 			HttpEntity<Author> requestUpdate = new HttpEntity<>(author, headers);
-			ResponseEntity<Author> responseEntity = restTemplate.exchange("http://localhost:8081/authors/" + authorId, HttpMethod.PUT, requestUpdate, Author.class);
+			ResponseEntity<Author> responseEntity = restTemplate.exchange("http://54.185.38.228:8081/authors/" + authorId, HttpMethod.PUT, requestUpdate, Author.class);
 			return responseEntity.getHeaders();
 		} catch (RestClientException e) {
 			response.sendError(400, "Invalid request caused by invalid body parameters.");		
@@ -110,7 +110,7 @@ public class AdminService  {
 	public void deleteAuthor(@PathVariable("authorId") Integer authorId, HttpServletResponse response) throws IOException
 	{
 		try {
-			restTemplate.delete("http://localhost:8081/authors/" + authorId);
+			restTemplate.delete("http://54.185.38.228:8081/authors/" + authorId);
 			response.setStatus(204);
 		} catch (RestClientException e) {
 			response.sendError(404, "Invalid id, author does not exist in database.");
@@ -125,7 +125,7 @@ public class AdminService  {
 	public HttpHeaders saveGenre(@RequestBody Genre genre, HttpServletResponse response) throws  IOException
 	{
 		try {
-			ResponseEntity<Genre> responseEntity = restTemplate.postForEntity("http://localhost:8081/genre", genre, Genre.class);
+			ResponseEntity<Genre> responseEntity = restTemplate.postForEntity("http://54.185.38.228:8081/genre", genre, Genre.class);
 			response.setStatus(201);
 			return responseEntity.getHeaders();
 		} catch (RestClientException e) {
@@ -141,7 +141,7 @@ public class AdminService  {
 	public Genre[] readGenre(HttpServletResponse response) throws SQLException,IOException
 	{
 		try {
-			ResponseEntity<Genre[]> responseEntity= restTemplate.getForEntity("http://localhost:8081/genres", Genre[].class);
+			ResponseEntity<Genre[]> responseEntity= restTemplate.getForEntity("http://54.185.38.228:8081/genres", Genre[].class);
 			Genre[] genres = responseEntity.getBody();
 			return genres;
 		} catch (RestClientException e) {
@@ -156,7 +156,7 @@ public class AdminService  {
 	public Genre[] readGenresByName(@PathVariable("genre_name") String genre_name, HttpServletResponse response) throws IOException
 	{
 		try {
-			ResponseEntity<Genre[]> responseEntity = restTemplate.getForEntity("http://localhost:8081/genres/" + genre_name , Genre[].class);
+			ResponseEntity<Genre[]> responseEntity = restTemplate.getForEntity("http://54.185.38.228:8081/genres/" + genre_name , Genre[].class);
 			Genre[] genres = responseEntity.getBody();
 			return genres;
 		} catch (RestClientException e) {
@@ -173,7 +173,7 @@ public class AdminService  {
 	{
 		try {
 			HttpEntity<Genre> requestUpdate = new HttpEntity<>(genre, headers);
-			ResponseEntity<Genre> responseEntity = restTemplate.exchange("http://localhost:8081/genres/" + genre_Id, HttpMethod.PUT, requestUpdate, Genre.class);
+			ResponseEntity<Genre> responseEntity = restTemplate.exchange("http://54.185.38.228:8081/genres/" + genre_Id, HttpMethod.PUT, requestUpdate, Genre.class);
 			return responseEntity.getHeaders();
 		} catch (RestClientException e) {
 			response.sendError(400, "Invalid request caused by invalid body parameters.");		
@@ -188,7 +188,7 @@ public class AdminService  {
 	{
 		try {
 			System.out.println(genre_Id);
-			restTemplate.delete("http://localhost:8081/genres/" + genre_Id);
+			restTemplate.delete("http://54.185.38.228:8081/genres/" + genre_Id);
 			response.setStatus(204);
 		} catch (RestClientException e) {
 			response.sendError(404, "Invalid id, author does not exist in database.");
@@ -205,7 +205,7 @@ public class AdminService  {
 	public HttpHeaders saveBook(@RequestBody Book book, HttpServletResponse response) throws  IOException
 	{
 		try {
-			ResponseEntity<Book> responseEntity = restTemplate.postForEntity("http://localhost:8081/book", book, Book.class);
+			ResponseEntity<Book> responseEntity = restTemplate.postForEntity("http://54.185.38.228:8081/book", book, Book.class);
 			response.setStatus(201);
 			return responseEntity.getHeaders();
 		} catch (RestClientException e) {
@@ -220,7 +220,7 @@ public class AdminService  {
 	public Book[] readBook(HttpServletResponse response) throws IOException
 	{
 		try {
-			ResponseEntity<Book[]> responseEntity = restTemplate.getForEntity("http://localhost:8081/books", Book[].class);
+			ResponseEntity<Book[]> responseEntity = restTemplate.getForEntity("http://54.185.38.228:8081/books", Book[].class);
 			Book[] books = responseEntity.getBody();
 			return books;
 		} catch (RestClientException e) {
@@ -236,7 +236,7 @@ public class AdminService  {
 	{
 		try {
 			System.out.println(title);
-			ResponseEntity<Book[]> responseEntity = restTemplate.getForEntity("http://localhost:8081/books/title/" + title , Book[].class);
+			ResponseEntity<Book[]> responseEntity = restTemplate.getForEntity("http://54.185.38.228:8081/books/title/" + title , Book[].class);
 			Book[] books = responseEntity.getBody();
 			return books;
 		} catch (RestClientException e) {
@@ -253,7 +253,7 @@ public class AdminService  {
 	{
 		try {
 			HttpEntity<Book> requestUpdate = new HttpEntity<>(book, headers);
-			ResponseEntity<Book> responseEntity = restTemplate.exchange("http://localhost:8081/books/" + bookId, HttpMethod.PUT, requestUpdate, Book.class);
+			ResponseEntity<Book> responseEntity = restTemplate.exchange("http://54.185.38.228:8081/books/" + bookId, HttpMethod.PUT, requestUpdate, Book.class);
 			return responseEntity.getHeaders();
 		} catch (RestClientException e) {
 			response.sendError(400, "Invalid request caused by invalid body parameters.");		
@@ -267,7 +267,7 @@ public class AdminService  {
 	public void deleteBook(@PathVariable("bookId") Integer bookId, HttpServletResponse response) throws IOException
 	{
 		try {
-			restTemplate.delete("http://localhost:8081/books/" + bookId);
+			restTemplate.delete("http://54.185.38.228:8081/books/" + bookId);
 			response.setStatus(204);
 		} catch (RestClientException e) {
 			response.sendError(404, "Invalid id, author does not exist in database.");
@@ -284,7 +284,7 @@ public class AdminService  {
 	public HttpHeaders savePublisher(@RequestBody Publisher publisher, HttpServletResponse response) throws IOException 
 	{
 		try {
-			ResponseEntity<Publisher> responseEntity = restTemplate.postForEntity("http://localhost:8081/publisher", publisher, Publisher.class);
+			ResponseEntity<Publisher> responseEntity = restTemplate.postForEntity("http://54.185.38.228:8081/publisher", publisher, Publisher.class);
 			response.setStatus(201);
 			return responseEntity.getHeaders();
 		} catch (RestClientException e) {
@@ -301,7 +301,7 @@ public class AdminService  {
 	public Publisher[] readPublisher(HttpServletResponse response) throws IOException
 	{
 		try {
-			ResponseEntity<Publisher[]> responseEntity = restTemplate.getForEntity("http://localhost:8081/publishers", Publisher[].class);
+			ResponseEntity<Publisher[]> responseEntity = restTemplate.getForEntity("http://54.185.38.228:8081/publishers", Publisher[].class);
 			Publisher[] publishers = responseEntity.getBody();
 			return publishers;
 		} catch (RestClientException e) {
@@ -317,7 +317,7 @@ public class AdminService  {
 	public Publisher[] readPublisherByNme(@PathVariable("publisherName") String publisherName, HttpServletResponse response) throws IOException
 	{
 		try {
-			ResponseEntity<Publisher[]> responseEntity = restTemplate.getForEntity("http://localhost:8081/publishers/" + publisherName , Publisher[].class);
+			ResponseEntity<Publisher[]> responseEntity = restTemplate.getForEntity("http://54.185.38.228:8081/publishers/" + publisherName , Publisher[].class);
 			Publisher[] publishers = responseEntity.getBody();
 			return publishers;
 		} catch (RestClientException e) {
@@ -334,7 +334,7 @@ public class AdminService  {
 	{
 		try {
 			HttpEntity<Publisher> requestUpdate = new HttpEntity<>(publisher, headers);
-			ResponseEntity<Publisher> responseEntity = restTemplate.exchange("http://localhost:8081/publishers/" + publisherId, HttpMethod.PUT, requestUpdate, Publisher.class);
+			ResponseEntity<Publisher> responseEntity = restTemplate.exchange("http://54.185.38.228:8081/publishers/" + publisherId, HttpMethod.PUT, requestUpdate, Publisher.class);
 			return responseEntity.getHeaders();
 		} catch (RestClientException e) {
 			response.sendError(400, "Invalid request caused by invalid body parameters.");		
@@ -351,7 +351,7 @@ public class AdminService  {
 	public void deletePublisher(@PathVariable("publisherId") Integer publisherId, HttpServletResponse response) throws IOException
 	{
 		try {
-			restTemplate.delete("http://localhost:8081/publishers/" + publisherId);
+			restTemplate.delete("http://54.185.38.228:8081/publishers/" + publisherId);
 			response.setStatus(204);
 		} catch (RestClientException e) {
 			response.sendError(404, "Invalid id, author does not exist in database.");
@@ -369,7 +369,7 @@ public class AdminService  {
 	public BookLoans[] readAllBookLoans(HttpServletResponse response) throws IOException
 	{
 		try {
-			ResponseEntity<BookLoans[]> responseEntity = restTemplate.getForEntity("http://localhost:8081/bookLoans", BookLoans[].class);
+			ResponseEntity<BookLoans[]> responseEntity = restTemplate.getForEntity("http://54.185.38.228:8081/bookLoans", BookLoans[].class);
 			BookLoans[] bookLoans = responseEntity.getBody();
 			return bookLoans;
 		} catch (RestClientException e) {
@@ -384,7 +384,7 @@ public class AdminService  {
 	public BookLoans[] readBookLoansByUserId(@PathVariable("cardNo") Integer cardNo, HttpServletResponse response) throws IOException
 	{
 		try {
-			ResponseEntity<BookLoans[]> responseEntity = restTemplate.getForEntity("http://localhost:8081/bookLoans/" + cardNo , BookLoans[].class);
+			ResponseEntity<BookLoans[]> responseEntity = restTemplate.getForEntity("http://54.185.38.228:8081/bookLoans/" + cardNo , BookLoans[].class);
 			BookLoans[] bookLoans = responseEntity.getBody();
 			return bookLoans;
 		} catch (RestClientException e) {
